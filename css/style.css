@@ -60,21 +60,14 @@ button,select,input{font:inherit;color:inherit}
 .bar-track{position:relative;height:30px;background:var(--surface);border:1px solid var(--line);border-radius:2px}
 .bar-fill{position:absolute;inset:0 auto 0 0;background:var(--accent-2);opacity:.85}
 .bar-fill.now{background:var(--accent)}
-.bar-val{position:absolute;top:50%;transform:translateY(-50%);font-size:13px;white-space:nowrap;padding:0 8px}
+.bar-val{position:absolute;top:50%;transform:translateY(-50%);font-size:12px;white-space:nowrap;padding:0 8px}
 .axis{display:grid;grid-template-columns:150px minmax(0,1fr);gap:12px}
 .axis-ticks{position:relative;height:22px;font-size:11px;color:var(--muted)}
-.axis-ticks span{position:absolute;transform:translateX(-50%)}
+.axis-ticks span{position:absolute;transform:translateX(-50%);white-space:nowrap}
 @media (max-width:560px){.bar-row,.axis{grid-template-columns:1fr}.axis>div:first-child{display:none}}
 
-/* filter */
-.filter{padding-block:28px 4px;display:flex;flex-wrap:wrap;gap:8px;align-items:center}
-.filter .label{font-size:14px;color:var(--muted);margin-right:4px}
-.chip{border:1px solid var(--line);background:var(--surface);border-radius:999px;padding:7px 14px;font-size:14px;cursor:pointer;min-height:40px}
-.chip[aria-pressed="true"]{background:var(--ink);color:var(--bg);border-color:var(--ink)}
-.chip .dot{display:inline-block;width:8px;height:8px;border-radius:50%;margin-right:6px;vertical-align:1px}
-
 /* acts */
-.act{padding-block:56px 16px;border-top:1px solid var(--line);margin-top:40px;scroll-margin-top:60px}
+.act{padding-block:40px 16px;scroll-margin-top:60px}
 .act-head{display:grid;grid-template-columns:auto minmax(0,1fr);gap:4px 20px;align-items:end;margin-bottom:28px}
 .act-no{font-family:var(--font-display);font-size:clamp(56px,9vw,96px);line-height:.9;color:var(--accent);font-weight:700}
 .act-head h2{font-size:clamp(24px,3.4vw,34px)}
@@ -188,3 +181,15 @@ footer{padding-block:40px 56px;color:var(--muted);font-size:13px;border-top:1px 
 body{margin:0}
 img{max-width:100%}
 [hidden]{display:none!important}
+
+/* stages & gates */
+.nav a.locked{opacity:.45;cursor:not-allowed}
+.nav a.locked:hover{background:transparent;color:var(--muted)}
+.gate{margin-top:48px;padding:20px;border:2px solid var(--accent-2);border-radius:6px;background:var(--surface)}
+.gate .eyebrow{color:var(--accent-2)}
+.gate .gq{font-family:var(--font-display);font-size:20px;font-weight:700;margin-top:6px;text-wrap:balance}
+.gate .opts{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px;margin-top:14px}
+@media (max-width:520px){.gate .opts{grid-template-columns:1fr}}
+.gate .opt:disabled:not(.right){opacity:.55}
+.gate .gmsg{margin-top:12px;font-size:15px}
+.gate .gnext{margin-top:14px;background:var(--accent-2);border-color:var(--accent-2);color:var(--on-accent)}

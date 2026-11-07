@@ -29,12 +29,12 @@ function mag(m){const s=(Math.round(m*100)/100).toString();return (m>0?'+':'')+s
 /* ---------- universe scale ---------- */
 (function(){
   const rows=[
-    {y:'150년경',w:'프톨레마이오스',d:'별 천구까지 (지구 반지름의 약 2만 배)',v:1.3e-5,l:'약 0.00001 광년'},
-    {y:'1838',w:'베셀',d:'처음 거리를 잰 별, 백조자리 61',v:10.3,l:'약 10 광년'},
-    {y:'1918',w:'섀플리',d:'우리은하의 지름 추정',v:3e5,l:'약 30만 광년'},
-    {y:'1925',w:'허블',d:'안드로메다는 다른 은하',v:9e5,l:'약 90만 광년'},
-    {y:'1929',w:'허블',d:'거리를 잰 가장 먼 은하',v:6.5e6,l:'약 650만 광년'},
-    {y:'현재',w:'관측 가능한 우주',d:'반지름',v:4.65e10,l:'약 465억 광년',now:true}
+    {y:'150년경',w:'프톨레마이오스',d:'별 천구까지 (지구 반지름의 약 2만 배)',v:1.3e-5,l:'약 0.00001 광년 (0.000004 pc)'},
+    {y:'1838',w:'베셀',d:'처음 거리를 잰 별, 백조자리 61',v:10.3,l:'약 10 광년 (3.2 pc)'},
+    {y:'1918',w:'섀플리',d:'우리은하의 지름 추정',v:3e5,l:'약 30만 광년 (약 9만 pc)'},
+    {y:'1925',w:'허블',d:'안드로메다는 다른 은하',v:9e5,l:'약 90만 광년 (약 28만 pc)'},
+    {y:'1929',w:'허블',d:'거리를 잰 가장 먼 은하',v:6.5e6,l:'약 650만 광년 (약 200만 pc)'},
+    {y:'현재',w:'관측 가능한 우주',d:'반지름',v:4.65e10,l:'약 465억 광년 (약 143억 pc)',now:true}
   ];
   const lo=-5,hi=11,box=$('#scaleBars');
   rows.forEach(r=>{
@@ -108,18 +108,46 @@ document.querySelectorAll('.events').forEach(ol=>{
     ol.appendChild(li);
   });
 });
-document.querySelectorAll('.filter .chip').forEach(b=>b.addEventListener('click',()=>{
-  document.querySelectorAll('.filter .chip').forEach(x=>x.setAttribute('aria-pressed',x===b?'true':'false'));
-  const f=b.dataset.f;
-  document.querySelectorAll('.ev').forEach(li=>{li.hidden=!(f==='all'||li.dataset.tags.split(' ').includes(f));});
-}));
-
-/* ---------- nav highlight ---------- */
+/* ---------- stages & gates ---------- */
 (function(){
+  const IDS=['start','act1','act2','act3','act4','act5','quiz'];
+  const NEXT=['1막 · 맨눈으로 하늘을 기록하다','2막 · 망원경, 6등급 너머를 보다','3막 · 빛을 쪼개고, 별까지 거리를 재다','4막 · 성운이 은하가 되다','5막 · 보이지 않는 빛으로 본 우주','확인 퀴즈'];
+  const G=[
+    {q:'히파르코스는 별을 밝기에 따라 몇 개의 등급으로 나눴나요?',o:['3개','5개','6개','10개'],a:2,h:'첫 화면의 별 지도 아래 범례를 보세요.'},
+    {q:'−1등급 별은 4등급 별보다 약 몇 배 밝게 보일까요?',o:['5배','약 12배','100배','500배'],a:2,h:'두 별의 등급 차이를 먼저 구하고, 등급 실험실의 표에서 찾아보세요.'},
+    {q:'망원경의 구경이 2배가 되면 빛을 모으는 능력(집광력)은 몇 배가 될까요?',o:['2배','4배','8배','변화 없음'],a:1,h:'집광력은 구경의 제곱에 비례합니다.'},
+    {q:'연주 시차가 0.25″인 별까지의 거리는 얼마일까요?',o:['0.25 pc','4 pc','25 pc','40 pc'],a:1,h:'거리(pc) = 1 ÷ 연주 시차(″)'},
+    {q:'1920년 대논쟁에서 "나선 성운은 우리은하 밖의 다른 은하"라고 주장한 사람은?',o:['할로 섀플리','히버 커티스','샤를 메시에','베스토 슬라이퍼'],a:1,h:'대논쟁 카드의 오른쪽 칸을 다시 읽어 보세요.'},
+    {q:'대기에 흡수되어 지상에서는 볼 수 없어 우주 망원경이 필요한 빛은?',o:['전파','가시광선','X선','모두 지상에서 볼 수 있다'],a:2,h:'빛의 창 실험실에서 막대가 "도달 못 함"인 빛을 찾아보세요.'}
+  ];
+  const KEY='universe-progress-v1';
+  let open=0;try{open=Math.min(IDS.length-1,Math.max(0,parseInt(localStorage.getItem(KEY)||'0',10)||0));}catch(e){}
+  const save=()=>{try{localStorage.setItem(KEY,String(open));}catch(e){}};
+  const stages=IDS.map(id=>document.getElementById(id));
   const links=[...document.querySelectorAll('.nav a')];
-  const ids=links.map(a=>a.getAttribute('href').slice(1));
-  function upd(){let cur='top';ids.forEach(id=>{const el=document.getElementById(id);if(el&&el.getBoundingClientRect().top<120)cur=id;});links.forEach(a=>a.classList.toggle('on',a.getAttribute('href')==='#'+cur));}
-  addEventListener('scroll',upd,{passive:true});upd();
+  let cur=0;
+  function nav(){links.forEach((a,i)=>{const lock=i>open;a.classList.toggle('locked',lock);a.classList.toggle('on',i===cur);a.setAttribute('aria-disabled',lock?'true':'false');a.title=lock?'앞 단계의 확인 질문을 맞히면 열립니다':'';});}
+  function show(i){cur=i;stages.forEach((s,j)=>{s.hidden=j!==i;});nav();window.scrollTo(0,0);}
+  links.forEach((a,i)=>a.addEventListener('click',ev=>{ev.preventDefault();if(i<=open)show(i);}));
+  function buildGate(i){
+    const old=stages[i].querySelector('.gate');if(old)old.remove();
+    const g=G[i],done=open>i;
+    const box=document.createElement('div');box.className='gate';
+    box.innerHTML='<p class="eyebrow">다음 단계로 가기 전 확인</p><p class="gq">'+g.q+'</p><div class="opts"></div><p class="gmsg" hidden></p><button class="btn gnext" type="button"'+(done?'':' hidden')+'>다음 단계: '+NEXT[i]+' →</button>';
+    const ops=box.querySelector('.opts'),msg=box.querySelector('.gmsg'),nx=box.querySelector('.gnext');
+    g.o.forEach((o,j)=>{const b=document.createElement('button');b.type='button';b.className='opt';b.textContent=o;
+      if(done){b.disabled=true;if(j===g.a)b.classList.add('right');}
+      b.onclick=()=>{
+        if(j===g.a){ops.querySelectorAll('.opt').forEach(x=>x.disabled=true);b.classList.add('right');msg.innerHTML='<b>정답입니다.</b> 다음 단계가 열렸습니다.';msg.hidden=false;nx.hidden=false;if(open<i+1){open=i+1;save();nav();}nx.focus();}
+        else{b.classList.add('wrong');b.disabled=true;msg.innerHTML='<b>다시 생각해 보세요.</b> 힌트: '+g.h;msg.hidden=false;}
+      };ops.appendChild(b);});
+    if(done){msg.innerHTML='<b>통과한 단계입니다.</b>';msg.hidden=false;}
+    nx.onclick=()=>show(i+1);
+    stages[i].appendChild(box);
+  }
+  G.forEach((g,i)=>buildGate(i));
+  $('#resetProgress').onclick=()=>{open=0;save();G.forEach((g,i)=>buildGate(i));show(0);};
+  show(0);
 })();
 
 /* ---------- LAB 1 magnitude ---------- */
@@ -284,7 +312,7 @@ document.querySelectorAll('.filter .chip').forEach(b=>b.addEventListener('click'
   const X=l=>x0+(Math.log10(l)-L0)/(L1-L0)*(x1-x0);
   function colorName(T){return T<3700?'붉은색':T<5200?'주황색':T<6000?'노란색':T<7500?'노란빛 흰색':T<10000?'흰색':T<30000?'청백색':'푸른색';}
   function upd(){
-    const T=toT(+R.value);clear(svg);
+    const K=toT(+R.value);clear(svg);
     const defs=S('defs',{},svg);const lg=S('linearGradient',{id:'vis',gradientUnits:'userSpaceOnUse',x1:X(380),x2:X(750),y1:0,y2:0},defs);
     [[380,'#7a2bd6'],[440,'#2b4ce0'],[490,'#16b0d8'],[530,'#2fbf3a'],[575,'#e8d72a'],[600,'#f29a1c'],[650,'#e3301c'],[750,'#8c1208']].forEach(([w,c])=>S('stop',{offset:((X(w)-X(380))/(X(750)-X(380))).toFixed(3),'stop-color':c},lg));
     S('rect',{x:X(380),y:yb+6,width:X(750)-X(380),height:14,fill:'url(#vis)'},svg);
@@ -293,21 +321,21 @@ document.querySelectorAll('.filter .chip').forEach(b=>b.addEventListener('click'
     T(svg,(X(750)+X(3000))/2,yb+40,'적외선','s-muted',{'text-anchor':'middle','font-size':'12'});
     S('line',{x1:x0,x2:x1,y1:yb,y2:yb,class:'s-stroke-muted'},svg);
     [100,300,1000,3000].forEach(w=>{S('line',{x1:X(w),x2:X(w),y1:yb,y2:yb+4,class:'s-stroke-muted'},svg);T(svg,X(w),yb-6,w+' nm','s-muted mono',{'text-anchor':w===3000?'end':'middle','font-size':'11'});});
-    const pts=[];let mx=0;for(let i=0;i<=180;i++){const l=Math.pow(10,L0+(L1-L0)*i/180);const B=Math.pow(l,-5)/(Math.exp(1.438777e7/(l*T))-1);pts.push([l,B]);if(B>mx)mx=B;}
+    const pts=[];let mx=0;for(let i=0;i<=180;i++){const l=Math.pow(10,L0+(L1-L0)*i/180);const B=Math.pow(l,-5)/(Math.exp(1.438777e7/(l*K))-1);pts.push([l,B]);if(B>mx)mx=B;}
     let d='M'+x0+' '+yb;pts.forEach(([l,B])=>{d+=' L'+X(l).toFixed(1)+' '+(yb-(B/mx)*(yb-yt)).toFixed(1);});d+=' L'+x1+' '+yb+' Z';
-    const col=rgb(T);
+    const col=rgb(K);
     S('path',{d:d,fill:col,'fill-opacity':.35,stroke:col,'stroke-width':2},svg);
-    const pk=2.898e6/T;const px=X(Math.max(60,Math.min(3000,pk)));
+    const pk=2.898e6/K;const px=X(Math.max(60,Math.min(3000,pk)));
     S('line',{x1:px,x2:px,y1:yt-4,y2:yb,class:'s-stroke-ink','stroke-dasharray':'4 3'},svg);
     T(svg,px+(px>480?-6:6),yt+6,'λ최대 '+Math.round(pk)+' nm','s-ink mono',{'text-anchor':px>480?'end':'start','font-size':'12'});
-    $('#tempLbl').textContent=Math.round(T).toLocaleString('ko-KR')+' K';
+    $('#tempLbl').textContent=Math.round(K).toLocaleString('ko-KR')+' K';
     $('#tempSwatch').style.background=col;$('#tempSwatch').style.boxShadow='0 0 28px 6px '+col;
-    $('#tempColor').textContent=colorName(T);
-    const c=CL.find(c=>T>=c[1]);
+    $('#tempColor').textContent=colorName(K);
+    const c=CL.find(c=>K>=c[1]);
     $('#tempClass').innerHTML=c[0]+'형 <small>· '+c[2]+' (약 '+c[3].toLocaleString('ko-KR')+' K)</small>';
     $('#tempPeak').innerHTML=Math.round(pk).toLocaleString('ko-KR')+' nm <small>'+(pk<380?'자외선':pk<=750?'가시광선':'적외선')+'</small>';
-    const pw=Math.pow(T/5778,4);$('#tempPow').innerHTML=(pw<10?pw.toFixed(2):korNum(pw))+' <small>배</small>';
-    box.querySelectorAll('.chip').forEach((b,i)=>{const cc=CL.slice().reverse()[i];b.setAttribute('aria-pressed',Math.abs(cc[3]-T)/cc[3]<0.02?'true':'false');});
+    const pw=Math.pow(K/5778,4);$('#tempPow').innerHTML=(pw<10?pw.toFixed(2):korNum(pw))+' <small>배</small>';
+    box.querySelectorAll('.chip').forEach((b,i)=>{const cc=CL.slice().reverse()[i];b.setAttribute('aria-pressed',Math.abs(cc[3]-K)/cc[3]<0.02?'true':'false');});
   }
   R.oninput=upd;upd();
 })();

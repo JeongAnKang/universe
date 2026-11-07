@@ -12,7 +12,7 @@
 </head>
 <body>
 <nav class="nav" aria-label="목차"><div class="wrap">
-  <a href="#top">처음</a>
+  <a href="#start">처음</a>
   <a href="#act1">1막 맨눈</a>
   <a href="#act2">2막 망원경</a>
   <a href="#act3">3막 빛과 거리</a>
@@ -23,6 +23,7 @@
 
 <main id="top">
 <div class="wrap">
+  <section class="stage" id="start">
   <header class="hero">
     <div>
       <p class="eyebrow">별과 우주 · 관측의 역사</p>
@@ -36,24 +37,15 @@
   </header>
 
   <section class="scale" aria-labelledby="scaleTitle">
-    <h2 id="scaleTitle">사람이 알던 우주의 크기</h2>
-    <p>가로축은 눈금 하나가 10배씩 커지는 로그 눈금입니다. 프톨레마이오스의 별 천구에서 오늘날 관측 가능한 우주까지 약 3경(3×10<sup>16</sup>) 배 넓어졌습니다.</p>
+    <h2 id="scaleTitle">사람이 아는 우주의 크기</h2>
+    <p>가로축은 눈금 하나가 10배씩 커지는 로그 눈금입니다. 프톨레마이오스의 별 천구에서 오늘날 관측 가능한 우주까지 약 3경(3×10<sup>16</sup>) 배 넓어졌습니다. 1 pc(파섹)은 약 3.26 광년입니다.</p>
     <div class="bars" id="scaleBars"></div>
     <div class="axis"><div></div><div class="axis-ticks mono" id="scaleTicks"></div></div>
   </section>
-
-  <div class="filter" role="group" aria-label="주제로 거르기">
-    <span class="label">주제로 보기</span>
-    <button class="chip" data-f="all" aria-pressed="true">전체</button>
-    <button class="chip" data-f="밝기" aria-pressed="false"><span class="dot" style="background:var(--t-bright)"></span>밝기</button>
-    <button class="chip" data-f="거리" aria-pressed="false"><span class="dot" style="background:var(--t-dist)"></span>거리</button>
-    <button class="chip" data-f="온도" aria-pressed="false"><span class="dot" style="background:var(--t-temp)"></span>온도</button>
-    <button class="chip" data-f="도구" aria-pressed="false"><span class="dot" style="background:var(--t-tool)"></span>관측 도구</button>
-    <button class="chip" data-f="우주관" aria-pressed="false"><span class="dot" style="background:var(--t-view)"></span>우주관</button>
-  </div>
+  </section>
 
   <!-- ACT 1 -->
-  <section class="act" id="act1">
+  <section class="act stage" id="act1">
     <div class="act-head">
       <div class="act-no">1막</div>
       <div><p class="period">BC 2세기 – 1609</p><h2>맨눈으로 하늘을 기록하다</h2></div>
@@ -91,7 +83,7 @@
   </section>
 
   <!-- ACT 2 -->
-  <section class="act" id="act2">
+  <section class="act stage" id="act2">
     <div class="act-head">
       <div class="act-no">2막</div>
       <div><p class="period">1609 – 1800</p><h2>망원경, 6등급 너머를 보다</h2></div>
@@ -120,7 +112,7 @@
   </section>
 
   <!-- ACT 3 -->
-  <section class="act" id="act3">
+  <section class="act stage" id="act3">
     <div class="act-head">
       <div class="act-no">3막</div>
       <div><p class="period">1800 – 1913</p><h2>빛을 쪼개고, 별까지 거리를 재다</h2></div>
@@ -170,7 +162,7 @@
       <div class="lab-grid">
         <div>
           <div class="viz"><svg id="tempSvg" viewBox="0 0 600 260" role="img" aria-label="표면 온도에 따른 별빛의 파장별 세기 곡선"></svg></div>
-          <div class="ctrl"><label for="tempR"><span>표면 온도</span><span class="mono" id="tempLbl"></span></label><input type="range" id="tempR" min="0" max="1000" value="414"></div>
+          <div class="ctrl"><label for="tempR"><span>표면 온도</span><span class="mono" id="tempLbl"></span></label><input type="range" id="tempR" min="0" max="1000" value="314"></div>
           <div class="presets" id="tempPresets"></div>
         </div>
         <div class="readout">
@@ -185,7 +177,7 @@
   </section>
 
   <!-- ACT 4 -->
-  <section class="act" id="act4">
+  <section class="act stage" id="act4">
     <div class="act-head">
       <div class="act-no">4막</div>
       <div><p class="period">1912 – 1930</p><h2>성운이 은하가 되다</h2></div>
@@ -217,7 +209,7 @@
   </section>
 
   <!-- ACT 5 -->
-  <section class="act" id="act5">
+  <section class="act stage" id="act5">
     <div class="act-head">
       <div class="act-no">5막</div>
       <div><p class="period">1930 – 현재</p><h2>보이지 않는 빛으로 본 우주</h2></div>
@@ -237,7 +229,7 @@
   </section>
 
   <!-- QUIZ -->
-  <section class="act" id="quiz">
+  <section class="act stage" id="quiz">
     <div class="act-head">
       <div class="act-no" style="color:var(--accent-2)">확인</div>
       <div><p class="period">8문항</p><h2>탐사 기록 확인 퀴즈</h2></div>
@@ -250,7 +242,7 @@
     </div>
   </section>
 </div>
-<footer><div class="wrap">연도와 수치는 교과서와 천문학사 자료에서 널리 쓰이는 값을 따랐고, 측정값은 어림수로 적었습니다. 실험실 그림은 이해를 돕기 위해 비율을 과장한 부분이 있습니다.</div></footer>
+<footer><div class="wrap"><button class="btn ghost" id="resetProgress" type="button" style="margin-bottom:12px">진행 기록 지우고 처음부터</button><br>연도와 수치는 교과서와 천문학사 자료에서 널리 쓰이는 값을 따랐고, 측정값은 어림수로 적었습니다. 실험실 그림은 이해를 돕기 위해 비율을 과장한 부분이 있습니다.</div></footer>
 </main>
 <script src="js/main.js"></script>
 </body>
