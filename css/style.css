@@ -193,3 +193,6 @@ img{max-width:100%}
 .gate .opt:disabled:not(.right){opacity:.55}
 .gate .gmsg{margin-top:12px;font-size:15px}
 .gate .gnext{margin-top:14px;background:var(--accent-2);border-color:var(--accent-2);color:var(--on-accent)}
+
+.life{font-family:var(--font-mono);font-weight:400;font-size:.62em;color:var(--muted);letter-spacing:0;white-space:nowrap;margin-left:2px}
+.debate h4 .life{font-size:12px}
