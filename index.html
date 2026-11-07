@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>여섯 등급에서 우주까지</title>
+<meta name="description" content="히파르코스부터 제임스 웹까지, 밝기·거리·온도·관측 도구로 넓어진 우주관을 배우는 학습 웹">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Hahmlet:wght@500;700&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans+KR:wght@400;500;600&display=swap">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+<nav class="nav" aria-label="목차"><div class="wrap">
+  <a href="#top">처음</a>
+  <a href="#act1">1막 맨눈</a>
+  <a href="#act2">2막 망원경</a>
+  <a href="#act3">3막 빛과 거리</a>
+  <a href="#act4">4막 은하</a>
+  <a href="#act5">5막 보이지 않는 빛</a>
+  <a href="#quiz">확인 퀴즈</a>
+</div></nav>
+
+<main id="top">
+<div class="wrap">
+  <header class="hero">
+    <div>
+      <p class="eyebrow">별과 우주 · 관측의 역사</p>
+      <h1>여섯 개의 밝기에서 <em>138억 년</em>의 우주까지</h1>
+      <p class="lede">기원전 2세기 히파르코스는 별을 밝기에 따라 여섯 무리로 나눴습니다. 그 뒤 사람들은 별의 밝기, 거리, 온도를 재는 방법을 하나씩 찾아냈고, 새 관측 도구가 나올 때마다 사람이 아는 우주는 넓어졌습니다. 다섯 막으로 그 과정을 따라가 봅니다.</p>
+    </div>
+    <figure class="plate" style="margin:0">
+      <svg id="heroSky" viewBox="0 0 480 300" role="img" aria-label="1등성부터 6등성까지 크기를 달리해 그린 별 지도. 어두운 별일수록 수가 많다."></svg>
+      <figcaption>히파르코스의 하늘: 1등성은 크게, 6등성은 작게 그렸습니다. 어두운 별일수록 훨씬 많습니다. 밝은 바탕은 별이 검게 찍히는 옛 사진 건판을 본떴습니다.</figcaption>
+    </figure>
+  </header>
+
+  <section class="scale" aria-labelledby="scaleTitle">
+    <h2 id="scaleTitle">사람이 알던 우주의 크기</h2>
+    <p>가로축은 눈금 하나가 10배씩 커지는 로그 눈금입니다. 프톨레마이오스의 별 천구에서 오늘날 관측 가능한 우주까지 약 3경(3×10<sup>16</sup>) 배 넓어졌습니다.</p>
+    <div class="bars" id="scaleBars"></div>
+    <div class="axis"><div></div><div class="axis-ticks mono" id="scaleTicks"></div></div>
+  </section>
+
+  <div class="filter" role="group" aria-label="주제로 거르기">
+    <span class="label">주제로 보기</span>
+    <button class="chip" data-f="all" aria-pressed="true">전체</button>
+    <button class="chip" data-f="밝기" aria-pressed="false"><span class="dot" style="background:var(--t-bright)"></span>밝기</button>
+    <button class="chip" data-f="거리" aria-pressed="false"><span class="dot" style="background:var(--t-dist)"></span>거리</button>
+    <button class="chip" data-f="온도" aria-pressed="false"><span class="dot" style="background:var(--t-temp)"></span>온도</button>
+    <button class="chip" data-f="도구" aria-pressed="false"><span class="dot" style="background:var(--t-tool)"></span>관측 도구</button>
+    <button class="chip" data-f="우주관" aria-pressed="false"><span class="dot" style="background:var(--t-view)"></span>우주관</button>
+  </div>
+
+  <!-- ACT 1 -->
+  <section class="act" id="act1">
+    <div class="act-head">
+      <div class="act-no">1막</div>
+      <div><p class="period">BC 2세기 – 1609</p><h2>맨눈으로 하늘을 기록하다</h2></div>
+      <p class="sum">망원경이 없던 시대에는 눈과 각도기로 별의 위치와 밝기를 적었습니다. 별은 모두 같은 거리의 천구에 붙어 있다고 생각했습니다.</p>
+    </div>
+    <ol class="events" data-act="1"></ol>
+
+    <div class="lab" id="labMag">
+      <div class="lab-head"><h3>등급 실험실</h3><span class="eyebrow">실험 1 · 밝기</span></div>
+      <p class="q">등급은 숫자가 작을수록 밝습니다. 포그슨(1856)이 정한 규칙에 따라 5등급 차이는 100배, 1등급 차이는 약 2.512배입니다. 두 천체를 골라 밝기를 비교해 보세요.</p>
+      <div class="viz scroll-x"><svg id="magRuler" viewBox="0 0 760 210" role="img" aria-label="등급 눈금 위에 여러 천체의 겉보기 등급을 표시한 그림"></svg></div>
+      <div class="lab-grid" style="margin-top:16px">
+        <div>
+          <div class="row2">
+            <div class="ctrl"><label for="magA">천체 A</label><select id="magA"></select></div>
+            <div class="ctrl"><label for="magB">천체 B</label><select id="magB"></select></div>
+          </div>
+          <div class="glow-pair">
+            <div class="glow-cell"><div class="glow" id="glowA"></div><span class="nm" id="glowAn"></span></div>
+            <div class="glow-cell"><div class="glow" id="glowB"></div><span class="nm" id="glowBn"></span></div>
+          </div>
+          <p class="note" style="margin-top:6px">점의 크기는 밝기의 로그에 맞춰 그렸습니다. 실제 밝기 차이는 오른쪽 숫자를 보세요.</p>
+        </div>
+        <div class="readout">
+          <div class="ro"><div class="k">등급 차이</div><div class="v" id="magDiff"></div></div>
+          <div class="ro"><div class="k">밝기 비</div><div class="v" id="magRatio"></div></div>
+          <p class="callout" id="magSentence"></p>
+          <table class="mini" aria-label="등급 차이와 밝기 비">
+            <tr><th>등급 차</th><td>1</td><td>2</td><td>3</td><td>4</td><td>5</td></tr>
+            <tr><th>밝기 비</th><td>2.5</td><td>6.3</td><td>15.8</td><td>39.8</td><td>100</td></tr>
+          </table>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ACT 2 -->
+  <section class="act" id="act2">
+    <div class="act-head">
+      <div class="act-no">2막</div>
+      <div><p class="period">1609 – 1800</p><h2>망원경, 6등급 너머를 보다</h2></div>
+      <p class="sum">망원경은 눈보다 넓은 면적으로 빛을 모읍니다. 더 어두운 별이 보이자 은하수가 별의 모임이라는 것, 하늘에 뿌연 천체가 많다는 것이 드러났습니다.</p>
+    </div>
+    <ol class="events" data-act="2"></ol>
+
+    <div class="lab" id="labScope">
+      <div class="lab-head"><h3>망원경 구경 실험실</h3><span class="eyebrow">실험 2 · 관측 도구</span></div>
+      <p class="q">빛을 모으는 능력(집광력)은 렌즈나 거울 지름의 제곱에 비례합니다. 구경을 바꿔 사람 눈(동공 약 7mm)과 비교해 보세요. 그림은 사람 키와 같은 비율로 그렸습니다.</p>
+      <div class="lab-grid">
+        <div>
+          <div class="viz"><svg id="scopeSvg" viewBox="0 0 600 280" role="img" aria-label="망원경 구경과 사람 키를 같은 비율로 비교한 그림"></svg></div>
+          <div class="ctrl"><label for="scopeR"><span>구경</span><span class="mono" id="scopeLbl"></span></label><input type="range" id="scopeR" min="0" max="1000" value="560"></div>
+          <div class="presets" id="scopePresets"></div>
+        </div>
+        <div class="readout">
+          <div class="ro"><div class="k">이름</div><div class="v" id="scopeName" style="font-family:var(--font-display);font-size:20px"></div></div>
+          <div class="ro"><div class="k">집광력 (사람 눈 = 1)</div><div class="v" id="scopeGain"></div></div>
+          <div class="ro"><div class="k">볼 수 있는 가장 어두운 등급 (어림)</div><div class="v" id="scopeLim"></div></div>
+          <div class="ro"><div class="k">구분할 수 있는 가장 작은 각 (이론값)</div><div class="v" id="scopeRes"></div></div>
+          <p class="note">지상 망원경은 대기가 흔들려 보통 약 1″보다 선명하게 보기 어렵습니다. 그래서 우주 망원경을 쏘아 올리고, 지상에서는 적응 광학으로 흔들림을 보정합니다.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ACT 3 -->
+  <section class="act" id="act3">
+    <div class="act-head">
+      <div class="act-no">3막</div>
+      <div><p class="period">1800 – 1913</p><h2>빛을 쪼개고, 별까지 거리를 재다</h2></div>
+      <p class="sum">별빛을 무지개처럼 나누자 별의 성분과 온도가 보였습니다. 1838년에는 처음으로 별까지의 거리를 쟀고, 1912년에는 훨씬 먼 거리를 재는 방법이 생겼습니다.</p>
+    </div>
+    <ol class="events" data-act="3"></ol>
+
+    <div class="lab" id="labPar">
+      <div class="lab-head"><h3>연주 시차 실험실</h3><span class="eyebrow">실험 3 · 거리</span></div>
+      <p class="q">지구가 태양을 돌면 가까운 별은 먼 배경 별 앞에서 조금씩 위치가 바뀌어 보입니다. 6개월 간격 두 위치에서 본 각도의 절반이 연주 시차 p입니다. 거리 d(파섹) = 1 ÷ p(초).</p>
+      <div class="lab-grid">
+        <div>
+          <div class="viz"><svg id="parSvg" viewBox="0 0 600 400" role="img" aria-label="지구 공전에 따라 가까운 별이 배경 별 앞에서 움직여 보이는 모습"></svg></div>
+          <div class="ctrl"><label for="parR"><span>별까지의 거리</span><span class="mono" id="parLbl"></span></label><input type="range" id="parR" min="1" max="10" step="0.01" value="3.27"></div>
+          <div class="presets" id="parPresets"></div>
+          <div class="btns"><button class="btn ghost" id="parPlay" type="button">지구 공전 멈추기</button></div>
+        </div>
+        <div class="readout">
+          <div class="ro"><div class="k">지구 위치</div><div class="v" id="parMonth"></div></div>
+          <div class="ro"><div class="k">연주 시차 p</div><div class="v" id="parP"></div></div>
+          <div class="ro"><div class="k">거리</div><div class="v" id="parD"></div></div>
+          <p class="callout" id="parMoon"></p>
+          <p class="note">그림은 이해를 돕기 위해 각도를 수십만 배 키웠습니다. 실제로 가장 가까운 별의 시차도 1″보다 작습니다. 1 파섹 ≈ 3.26 광년.</p>
+        </div>
+      </div>
+
+      <div class="sub-lab">
+        <h4>절대 등급 계산기</h4>
+        <p class="note">겉보기 등급은 거리에 따라 달라집니다. 모든 별을 10 파섹(32.6 광년)에 놓았다고 할 때의 밝기가 절대 등급 M입니다. M = m − 5 log<sub>10</sub>(d ÷ 10)</p>
+        <div class="lab-grid" style="margin-top:12px">
+          <div>
+            <div class="ctrl"><label for="absPreset">별 고르기</label><select id="absPreset"></select></div>
+            <div class="ctrl"><label for="absM"><span>겉보기 등급 m</span><span class="mono" id="absMl"></span></label><input type="range" id="absM" min="-27" max="15" step="0.01" value="-1.46"></div>
+            <div class="ctrl"><label for="absD"><span>거리 d</span><span class="mono" id="absDl"></span></label><input type="range" id="absD" min="-6" max="3.3" step="0.001" value="0.4216"></div>
+          </div>
+          <div class="readout">
+            <div class="ro"><div class="k">절대 등급 M</div><div class="v" id="absOut"></div></div>
+            <p class="callout" id="absSentence"></p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="lab" id="labTemp">
+      <div class="lab-head"><h3>별의 색과 온도 실험실</h3><span class="eyebrow">실험 4 · 온도</span></div>
+      <p class="q">뜨거운 물체일수록 더 짧은 파장(파란 쪽)의 빛을 가장 강하게 냅니다(빈의 변위 법칙). 표면 온도를 바꾸며 별의 색과 빛의 분포를 보세요.</p>
+      <div class="lab-grid">
+        <div>
+          <div class="viz"><svg id="tempSvg" viewBox="0 0 600 260" role="img" aria-label="표면 온도에 따른 별빛의 파장별 세기 곡선"></svg></div>
+          <div class="ctrl"><label for="tempR"><span>표면 온도</span><span class="mono" id="tempLbl"></span></label><input type="range" id="tempR" min="0" max="1000" value="414"></div>
+          <div class="presets" id="tempPresets"></div>
+        </div>
+        <div class="readout">
+          <div class="swatch-row"><div class="swatch" id="tempSwatch"></div><div><div class="k note">이 온도의 별 색</div><div id="tempColor" style="font-family:var(--font-display);font-size:22px"></div></div></div>
+          <div class="ro"><div class="k">분광형 · 비슷한 별</div><div class="v" id="tempClass"></div></div>
+          <div class="ro"><div class="k">가장 강한 빛의 파장 λ<sub>최대</sub></div><div class="v" id="tempPeak"></div></div>
+          <div class="ro"><div class="k">같은 면적에서 내는 에너지 (태양 = 1)</div><div class="v" id="tempPow"></div></div>
+          <p class="note">곡선은 모양 비교를 위해 꼭대기 높이를 맞췄습니다. 실제로는 온도가 2배면 에너지는 16배(온도의 4제곱)입니다.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ACT 4 -->
+  <section class="act" id="act4">
+    <div class="act-head">
+      <div class="act-no">4막</div>
+      <div><p class="period">1912 – 1930</p><h2>성운이 은하가 되다</h2></div>
+      <p class="sum">나선 성운은 우리은하 안의 가스일까, 바깥의 다른 은하일까? 변광성으로 거리를 재면서 답이 나왔고, 은하들이 서로 멀어진다는 사실까지 밝혀졌습니다.</p>
+    </div>
+    <ol class="events" data-act="4"></ol>
+
+    <div class="lab" id="labHubble">
+      <div class="lab-head"><h3>허블 법칙 실험실</h3><span class="eyebrow">실험 5 · 우주관</span></div>
+      <p class="q">은하까지의 거리와 멀어지는 속도를 점으로 찍었습니다. 기울기 H₀를 움직여 점들을 가장 잘 지나는 직선을 찾아보세요. 1 ÷ H₀는 우주 나이의 어림값입니다.</p>
+      <div class="lab-grid">
+        <div>
+          <div class="viz"><svg id="hubSvg" viewBox="0 0 600 380" role="img" aria-label="은하의 거리와 후퇴 속도 그래프"></svg></div>
+          <div class="ctrl"><label for="hubR"><span>기울기 H₀</span><span class="mono" id="hubLbl"></span></label><input type="range" id="hubR" min="30" max="550" step="1" value="45"></div>
+          <div class="btns">
+            <button class="btn" id="hubFit" type="button">가장 잘 맞는 기울기</button>
+            <button class="btn ghost" id="hub1929" type="button">허블의 1929년 값</button>
+          </div>
+        </div>
+        <div class="readout">
+          <div class="ro"><div class="k">H₀ (km/s/Mpc)</div><div class="v" id="hubH"></div></div>
+          <div class="ro"><div class="k">점과 직선의 평균 차이</div><div class="v" id="hubErr"></div></div>
+          <div class="ro"><div class="k">우주 나이 어림 (1 ÷ H₀)</div><div class="v" id="hubAge"></div></div>
+          <p class="callout" id="hubMsg"></p>
+          <p class="note">1 Mpc(메가파섹) ≈ 326만 광년. 점은 학습용으로 만든 자료입니다.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ACT 5 -->
+  <section class="act" id="act5">
+    <div class="act-head">
+      <div class="act-no">5막</div>
+      <div><p class="period">1930 – 현재</p><h2>보이지 않는 빛으로 본 우주</h2></div>
+      <p class="sum">가시광선은 빛의 아주 작은 일부입니다. 전파, 적외선, X선으로 하늘을 보자 대폭발의 흔적과 먼지 속 아기별, 블랙홀이 드러났습니다. 대기가 막는 빛을 보려고 망원경은 우주로 올라갔습니다.</p>
+    </div>
+    <ol class="events" data-act="5"></ol>
+
+    <div class="lab" id="labEM">
+      <div class="lab-head"><h3>빛의 창 실험실</h3><span class="eyebrow">실험 6 · 관측 도구</span></div>
+      <p class="q">지구 대기는 어떤 빛은 통과시키고 어떤 빛은 막습니다. 막대 높이는 지표까지 도달하는 정도입니다. 빛의 종류를 눌러 무엇을 보는지, 망원경을 어디에 두어야 하는지 확인하세요.</p>
+      <div class="bandbtns" id="bandBtns" role="group" aria-label="빛의 종류"></div>
+      <div class="lab-grid">
+        <div class="viz"><svg id="emSvg" viewBox="0 0 600 220" role="img" aria-label="빛의 종류별로 대기를 통과해 지표에 도달하는 정도"></svg></div>
+        <div class="readout bandinfo" id="bandInfo"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- QUIZ -->
+  <section class="act" id="quiz">
+    <div class="act-head">
+      <div class="act-no" style="color:var(--accent-2)">확인</div>
+      <div><p class="period">8문항</p><h2>탐사 기록 확인 퀴즈</h2></div>
+      <p class="sum">보기를 누르면 바로 정답과 풀이가 나옵니다.</p>
+    </div>
+    <div class="quiz" id="quizBox"></div>
+    <div class="score">
+      <div><div class="note">맞힌 문제</div><div class="v" id="quizScore">0 / 8</div></div>
+      <button class="btn ghost" id="quizReset" type="button">다시 풀기</button>
+    </div>
+  </section>
+</div>
+<footer><div class="wrap">연도와 수치는 교과서와 천문학사 자료에서 널리 쓰이는 값을 따랐고, 측정값은 어림수로 적었습니다. 실험실 그림은 이해를 돕기 위해 비율을 과장한 부분이 있습니다.</div></footer>
+</main>
+<script src="js/main.js"></script>
+</body>
+</html>
