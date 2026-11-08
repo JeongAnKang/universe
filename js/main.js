@@ -104,7 +104,7 @@ document.querySelectorAll('.events').forEach(ol=>{
   const a=+ol.dataset.act;
   EV.filter(e=>e.a===a).forEach(e=>{
     const li=document.createElement('li');li.className='ev';li.dataset.tags=e.tg.join(' ');
-    li.innerHTML='<div class="yr">'+e.y+'</div><div><h3>'+e.n+(e.lf?' <span class="life">('+e.lf+')</span>':'')+'<small>'+e.en+'</small></h3><p class="hl">'+e.h+'</p><p class="tx">'+e.t+'</p>'+(e.debate?DEBATE:'')+(e.c?'<p class="ch">'+e.c+'</p>':'')+'<div class="tags">'+e.tg.map(t=>'<span class="tag t-'+t+'">'+(t==='도구'?'관측 도구':t)+'</span>').join('')+'</div></div>';
+    li.innerHTML='<div class="yr">'+e.y+'</div><div><h3>'+e.n+(e.lf?' <span class="life">('+e.lf+')</span>':'')+'<small>'+e.en+'</small></h3><p class="hl">'+e.h+'</p><p class="tx">'+e.t+'</p>'+(e.debate?DEBATE:'')+(e.c?'<p class="ch">'+e.c+'</p>':'')+'</div>';
     ol.appendChild(li);
   });
 });
